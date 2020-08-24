@@ -1,6 +1,8 @@
 # Electric-Vehicles-Database
 
-This is a PaaS application which will be a database or Electric Vehicles. 
+This is a PaaS application which will be a database or Electric Vehicles. Developed using Python Webapp2 framework 
+and deployed using the Google App Engine/Google Datastore.
+
 In this application: 
 
 -users are able to login and logout.
