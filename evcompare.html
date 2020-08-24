@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EV Compare</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <!-- Navigation links -->
+            <div><nav class="navbar navbar-expand-sm bg-light">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/evcompare">EV COMPARISON</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addingev">ADD EV</a>
+                    </li>
+
+                    <li class="">
+                        <a class="nav-link navbar-nav justify-content-end" href="{{ url }}">{{ url_string}}</a>
+                    </li>
+                </ul>
+                </nav>
+            </div>
+
+            <div class="main">
+                <h2>SELECT ATLEAST TWO OR MORE EVs TO COMPARE</h2>
+                <form action="/evcompare" method="post">
+                    <label class="heading">List of EVS IN THE datastore:</label>
+                    {% for n in list %}
+                      <ul>
+                          <li><input type="checkbox" name="checked_name" value="{{ n.key.id() }}" >{{n.name}} {{n.manufacturer}} {{n.year}}</li>
+
+                    </ul>
+                    {% endfor %}
+                      <input type="submit" name="button" Value="COMPARE"/>
+
+                </form>
+            </div>
+              <div>
+                <h3>{{message}}</h3>
+              </div>
+              <div class="table table-hover">
+                <table>
+                  <tr>
+                    <th>Name</th>
+                    <th>Manufacturer</th>
+                    <th>Year</th>
+                    <th>Battery size</th>
+                    <th>WLTP range</th>
+                    <th>Cost</th>
+                    <th>Power</th>
+                    <th>Average EV rating</th>
+
+                  </tr>
+                  {% for n in checked_ev_list %}
+                  <tr>
+                    <td><a href="/Details?name={{n.name}}&manufacturer={{n.manufacturer}}&year={{n.year}}">{{ n.name }} </a></td>
+
+
+                    <td><a href="/Details?name={{n.name}}&manufacturer={{n.manufacturer}}&year={{n.year}}">{{n.manufacturer}}</td>
+
+                    {% if n.year == max_year %}
+                    <td class="text-success">{{ n.year }}</td>
+                    {% elif n.year == min_year %}
+                    <td class="text-danger">{{ n.year }}</td>
+                    {% else %}
+                    <td>{{ n.year }}</td>
+                    {% endif %}
+
+                    {% if n.batterysize == max_batterysize %}
+                    <td class="text-success">{{ n.batterysize }}</td>
+                    {% elif n.batterysize == min_batterysize %}
+                    <td class="text-danger">{{ n.batterysize }}</td>
+                    {% else %}
+                    <td>{{ n.batterysize }}</td>
+                    {% endif %}
+
+                    {% if n.WLTPrange == max_wltp %}
+                    <td class="text-success">{{ n.WLTPrange }}</td>
+                    {% elif n.WLTPrange == min_wltp %}
+                    <td class="text-danger">{{ n.WLTPrange }}</td>
+                    {% else %}
+                    <td>{{ n.WLTPrange }}</td>
+                    {% endif %}
+
+                    {% if  n.cost == max_cost %}
+                    <td class="text-danger">{{  n.cost }}</td>
+                    {% elif n.cost == min_cost %}
+                    <td class="text-success">{{  n.cost }}</td>
+                    {% else %}
+                    <td>{{  n.cost }}</td>
+                    {% endif %}
+
+                    {% if n.power  == max_power %}
+                    <td class="text-success">{{ n.power }}</td>
+                    {% elif n.power == min_power %}
+                    <td class="text-danger">{{ n.power }}</td>
+                    {% else %}
+                    <td>{{ n.power }}</td>
+                    {% endif %}
+
+
+                    {% if n.avg_rating  == max_rating %}
+                    <td class="text-success">{{ n.avg_rating }}</td>
+                    {% elif n.avg_rating == min_rating %}
+                    <td class="text-danger">{{ n.avg_rating }}</td>
+                    {% else %}
+                    <td>{{ n.avg_rating }}</td>
+                    {% endif %}
+
+
+                  </tr>
+                  {% endfor %}
+
+                </table>
+
+              </div>
+
+
+
+        </div>
+  </body>
+</html>

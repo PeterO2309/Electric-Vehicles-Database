@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Adding an EV to the database</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <!-- Navigation links -->
+            <div><nav class="navbar navbar-expand-sm bg-light">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/evcompare">EV COMPARISON</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addingev">ADD EV</a>
+                    </li>
+
+                    <li class="">
+                        <a class="nav-link navbar-nav justify-content-end" href="{{ url }}">{{ url_string}}</a>
+                    </li>
+                </ul>
+                </nav>
+            </div>
+
+            <!-- Checks if a user is logged in -->
+            {% if user %}
+
+
+
+
+            <h4>Complete the form below to add an EV to the database.</h4>
+            <p class="font-weight-bolder">Note that EV with the same manufacturer, name, and year
+cannot be added. You are taken to the homepage instead.</p>
+
+
+            <div id="submit-form">
+                <form method="post" action="/addingev">
+                    <div class="form-group">
+                        <label for="ev_name">Name:</label>
+                        <input type="text"class="form-control w-50 p-3" id="ev_name" placeholder="Enter name" name="ev_name" required />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="ev_manufacturer">Manufacturer:</label>
+                        <input type="text" class="form-control w-50 p-3" id="ev_manufacturer" placeholder="Enter manufacturer" name="ev_manufacturer"  required />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="ev_year">Year:</label>
+                        <input type="number" class="form-control w-50 p-3" placeholder="Enter year" id="ev_year" name="ev_year"  required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ev_batterysize">Battery Size:</label>
+                        <input type="number" class="form-control w-50 p-3"  id="ev_batterysize" placeholder="Enter battery size" name="ev_batterysize"  required  />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ev_wltp">WLTP range: </label>
+                        <input type="number" class="form-control w-50 p-3" name="ev_wltp" placeholder="Enter wltp range" id="ev_wltp" step="0.01" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ev_cost">Cost:</label>
+                        <input type="number" class="form-control w-50 p-3" name="ev_cost" placeholder="Enter cost" id="ev_cost" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ev_power">Power:</label>
+                        <input type="number" class="form-control w-50 p-3" id="ev_power" placeholder="Enter power" name="ev_power" required />
+                    </div>
+
+
+                    <input type="submit" class="btn btn-primary" value="ADD" name="button"/>
+                     <input type="submit" value="Cancel" name="button" class="btn btn-primary"  />
+                </form>
+            </div>
+
+            <div>
+<!--
+                <div>
+                    <form method="post" action="/addingev">
+                        <input type="submit" value="Cancel" name="button" class="btn btn-primary"  />
+                    </form>
+                </div>
+-->
+
+            </div>
+
+            {% else %}
+            <p><a href="/">Login first</a> </p>
+            {% endif %}
+
+            </body>
+        </html>
